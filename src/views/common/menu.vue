@@ -50,6 +50,7 @@
     color $menu-color
     cursor pointer
     user-select none
+    background $menu-bg
     
     a, a:hover
         display block
@@ -66,10 +67,13 @@
         margin-left 8px
 .menu-item
     line-height 48px
-    padding-left 24px
     overflow hidden
     white-space nowrap
     transition all .2s ease-in-out
+    
+    a
+        display block
+        padding-left 24px
     
     &:hover, &:hover a
         color #fff
@@ -83,7 +87,7 @@
     background $menu-bg
     padding-left 24px
     padding-right 12px
-    height 48px
+    line-height 48px
     
     span
         flex 1
@@ -98,7 +102,9 @@
         
     .menu-item
         padding-left 0
-        text-indent 48px
+        
+        a
+            padding-left 48px
         
 .menu-expand
     transition all .2s ease-in-out
@@ -112,7 +118,53 @@
         
     .menu-expand
         transform rotate(180deg)
+
+
+.menu-collapsed  
+    
+    .menu-title, & > .menu-item, & > .menu-item a
+        padding 0
+        text-align center
+        display block
+        line-height 60px
+         
+        span, .menu-expand
+             display none
         
+        .ivu-icon
+            font-size 24px
+            width 24px
+            
+    .menu-submenu
+        position relative
+        .menu
+            display none
+            position absolute
+            top 0
+            left 100%
+            z-index 1
+            box-shadow 0 3px 10px #666
+            border-radius 0 3px 3px 0
+            
+            &:before
+                content ''
+                position absolute
+                width 1px 
+                height 100%
+                background #eee
+                left 0
+                top 0
+                z-index 1
+            .menu-item a
+                padding 0 24px
+                min-width 100px
+            
+        &:hover .menu
+            display block           
+        
+        
+        
+
 </style>
 
 <template>
@@ -120,35 +172,45 @@
         <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
             <li class="menu-submenu">
                 <div class="menu-title" title="基础组件">
-                    <Icon type="ios-navigate"></Icon>
+                    <Icon type="calendar"></Icon>
                     <span>基础组件</span>
                     <Icon type="ios-arrow-down menu-expand"></Icon>                    
                 </div>
                 <ul class="menu">
-                    <li class="menu-item"><router-link to="/basic/form">Form 表单</router-link></li>
-                    <li class="menu-item"><router-link to="/basic/form">Table 表格</router-link></li>
-                    <li class="menu-item"><router-link to="/basic/form">Icon 图标</router-link></li>
+                    <li class="menu-item">
+                        <router-link class="menu-link" to="/basic/form">Form 表单</router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link class="menu-link" to="/basic/table">Table 表格</router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link class="menu-link" to="/basic/form">Icon 图标</router-link>
+                    </li>
                 </ul>
             </li>
-            <li class="menu-submenu menu-opened">
-                <div class="menu-title" title="表单">
+            <li class="menu-submenu">
+                <div class="menu-title" title="导航">
                     <Icon type="ios-list-outline"></Icon>
-                    <span>基础组件</span>
+                    <span>导航</span>
                     <Icon type="ios-arrow-down menu-expand"></Icon> 
                 </div>
                 <ul class="menu">
-                    <li class="menu-item menu-item-active">Input 输入框</li>
-                    <li class="menu-item">Radio 单选框</li>
+                    <li class="menu-item">
+                        <router-link class="menu-link" to="/basic/form">Input 输入框</router-link>
+                    </li>
+                    <li class="menu-item">
+                        <router-link class="menu-link" to="/basic/form">Radio 单选框</router-link>
+                    </li>
                 </ul>
             </li>
             <li class="menu-item">
-                <router-link to="/basic/form">
-                    <Icon type="ios-grid-view"></Icon></Icon><span>基础组件</span>
+                <router-link class="menu-link" to="/basic/form">
+                    <Icon type="pinpoint"></Icon><span>基础组件</span>
                 </router-link>
             </li>
             <li class="menu-item">
-                <router-link to="/basic/form">
-                    <Icon type="ios-grid-view"></Icon></Icon><span>其他</span>
+                <router-link class="menu-link" to="/basic/form">
+                    <Icon type="paper-airplane"></Icon><span>其他</span>
                 </router-link>
             </li>
         </ul>
@@ -172,22 +234,25 @@ export default {
 
     mounted() {
         var menu = this.$refs.menu;
-        var submenuTitles = menu.querySelectorAll('.menu-title');
-        var menuItems = menu.querySelectorAll('.menu-item');
-        submenuTitles.forEach(elem => {
-            on(elem, 'click', () => {
-                toggleClass(elem.parentNode, 'menu-opened');
-            });
-        });
-        menuItems.forEach(elem => {
-            on(elem, 'click', () => {
-                if (!hasClass(elem, 'menu-item-active')) {
-                    menuItems.forEach(elem2 => {
-                        removeClass(elem2, 'menu-item-active');
-                    });
-                    addClass(elem, 'menu-item-active');
+        on(menu, 'click', e => {
+            let obj = e.target || e.srcElement;
+            
+            while (obj !== menu) {
+                if (hasClass(obj, 'menu-title')) {
+                    toggleClass(obj.parentNode, 'menu-opened');
+                    break;
                 }
-            });
+                if (hasClass(obj, 'menu-link')) {
+                    let activeMenu = menu.querySelectorAll('.menu-item-active');
+                    activeMenu.forEach(elem => {
+                        removeClass(elem, 'menu-item-active');
+                    });
+                    addClass(obj.parentNode, 'menu-item-active');
+                    break;
+                }
+                obj = obj.parentNode;
+                // statement
+            }            
         });
     }
 };
