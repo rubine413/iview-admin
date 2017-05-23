@@ -1,34 +1,21 @@
 <style lang="stylus" scoped>
 @import '../../style/global.styl'
     
-.ivu-menu-dark .ivu-menu-item-active, .ivu-menu-dark .ivu-menu-item-active:hover
-    color #fff
+
+// .menu-item
+//     line-height 60px
+//     text-align center
+//     color #eee
+//     cursor pointer
+//     white-space nowrap
+//     position relative
     
-.ivu-menu-dark .ivu-menu-item-active:not(.ivu-menu-submenu), .ivu-menu-dark .ivu-menu-submenu-title-active:not(.ivu-menu-submenu)
-    color #fff
-    border none
-    background #39f !important
-    
-.ivu-menu, .ivu-menu-item
-    overflow hidden
-    white-space nowrap
-    
-.ivu-menu-item > i
-    margin-right 8px
-.menu-item
-    line-height 60px
-    text-align center
-    color #eee
-    cursor pointer
-    white-space nowrap
-    position relative
-    
-    &:hover
-        background #313540
-        color #fff
+//     &:hover
+//         background #313540
+//         color #fff
         
-        .submenu
-            display block
+//         .submenu
+//             display block
 
 .submenu
     position absolute
@@ -54,67 +41,124 @@
     .menu-item
         padding 0 30px
         line-height 50px
+        
+.menu
+    display block
+    position relative
+    margin 0 
+    padding 0
+    color $menu-color
+    cursor pointer
+    user-select none
+    
+    a, a:hover
+        display block
+        user-select none
+        color $menu-color
+    
+    .ivu-icon
+        font-size 16px
+        text-align center
+        width 16px
+        // vertical-align -1px
+        
+    .ivu-icon + span
+        margin-left 8px
+.menu-item
+    line-height 48px
+    padding-left 24px
+    overflow hidden
+    white-space nowrap
+    transition all .2s ease-in-out
+    
+    &:hover, &:hover a
+        color #fff
+        
+    &.menu-item-active, &.menu-item-active a
+        color #fff
+        background $primary-bg
+.menu-title
+    display flex
+    align-items center    
+    background $menu-bg
+    padding-left 24px
+    padding-right 12px
+    height 48px
+    
+    span
+        flex 1
+        overflow hidden
+        white-space nowrap
+        
+.menu-submenu
+    
+    .menu
+        display none
+        transition all .2s ease-in-out
+        
+    .menu-item
+        padding-left 0
+        text-indent 48px
+        
+.menu-expand
+    transition all .2s ease-in-out
+.menu-opened
+    background $menu-bg-opened
+    
+    .menu-title
+        color #fff
+    .menu
+        display block
+        
+    .menu-expand
+        transform rotate(180deg)
+        
 </style>
 
 <template>
-    <div class="menu-wrapper">
-        <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" :accordion="true" v-show="!collapsed">
-            <Submenu name="1">
-                <template slot="title">
-                    <Icon type="ios-navigate"></Icon>基础组件
-                </template>
-                <Menu-item name="1-1" data-link="/basic/form">Form 表单</Menu-item>
-                <Menu-item name="1-2">Table 表格</Menu-item>
-                <Menu-item name="1-3">Icon 图标</Menu-item>
-            </Submenu>
-            <Submenu name="2">
-                <template slot="title">
-                    <Icon type="ios-list-outline"></Icon>表单
-                </template>
-                <Menu-item name="2-1">Input 输入框</Menu-item>
-                <Menu-item name="2-2">Radio 单选框</Menu-item>
-                <Menu-item name="2-3">Checkbox 多选框</Menu-item>
-                <Menu-item name="2-4">Switch 开关</Menu-item>
-            </Submenu>
-            <Menu-item name="3"><Icon type="ios-grid-view"></Icon>表格</Menu-item>
-            <Submenu name="4">
-                <template slot="title">
-                    <Icon type="ios-analytics"></Icon>其他
-                </template>
-                <Menu-item name="4-1">选项 1</Menu-item>
-                <Menu-item name="4-2">选项 2</Menu-item>
-            </Submenu>
-        </Menu>
-        <ul class="menu menu-collapsed" v-show="collapsed">
-            <li class="menu-item">
-                <div class="menu-title" title="基础组件"><Icon type="ios-navigate" size="24"></Icon></div>
-                <ul class="submenu">
-                    <li class="menu-item">Grid 栅格</li>
-                    <li class="menu-item">Button 按钮</li>
-                    <li class="menu-item">Icon 图标</li>
+    <aside class="menu-wrapper">        
+        <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
+            <li class="menu-submenu">
+                <div class="menu-title" title="基础组件">
+                    <Icon type="ios-navigate"></Icon>
+                    <span>基础组件</span>
+                    <Icon type="ios-arrow-down menu-expand"></Icon>                    
+                </div>
+                <ul class="menu">
+                    <li class="menu-item"><router-link to="/basic/form">Form 表单</router-link></li>
+                    <li class="menu-item"><router-link to="/basic/form">Table 表格</router-link></li>
+                    <li class="menu-item"><router-link to="/basic/form">Icon 图标</router-link></li>
                 </ul>
             </li>
-            <li class="menu-item">
-                <div class="menu-title" title="表单"><Icon type="ios-list-outline" size="24"></Icon></div>
-                <ul class="submenu">
-                    <li class="menu-item">Input 输入框</li>
+            <li class="menu-submenu menu-opened">
+                <div class="menu-title" title="表单">
+                    <Icon type="ios-list-outline"></Icon>
+                    <span>基础组件</span>
+                    <Icon type="ios-arrow-down menu-expand"></Icon> 
+                </div>
+                <ul class="menu">
+                    <li class="menu-item menu-item-active">Input 输入框</li>
                     <li class="menu-item">Radio 单选框</li>
-                    <li class="menu-item">Checkbox 多选框</li>
-                    <li class="menu-item">Switch 开关</li>
                 </ul>
             </li>
             <li class="menu-item">
-                <div class="menu-title" title="表格"><Icon type="ios-grid-view" size="24"></Icon></Icon></div>
+                <router-link to="/basic/form">
+                    <Icon type="ios-grid-view"></Icon></Icon><span>基础组件</span>
+                </router-link>
             </li>
             <li class="menu-item">
-                <div class="menu-title" title="其他"><Icon type="ios-analytics" size="24"></Icon></div>
+                <router-link to="/basic/form">
+                    <Icon type="ios-grid-view"></Icon></Icon><span>其他</span>
+                </router-link>
             </li>
         </ul>
-    </div>    
+    </aside>    
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+
+import { on, addClass, toggleClass, hasClass, removeClass } from '../../assets/js/dom';
 
 export default {
     name: 'admin-menu',
@@ -124,6 +168,27 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+
+    mounted() {
+        var menu = this.$refs.menu;
+        var submenuTitles = menu.querySelectorAll('.menu-title');
+        var menuItems = menu.querySelectorAll('.menu-item');
+        submenuTitles.forEach(elem => {
+            on(elem, 'click', () => {
+                toggleClass(elem.parentNode, 'menu-opened');
+            });
+        });
+        menuItems.forEach(elem => {
+            on(elem, 'click', () => {
+                if (!hasClass(elem, 'menu-item-active')) {
+                    menuItems.forEach(elem2 => {
+                        removeClass(elem2, 'menu-item-active');
+                    });
+                    addClass(elem, 'menu-item-active');
+                }
+            });
+        });
     }
 };
 </script>
