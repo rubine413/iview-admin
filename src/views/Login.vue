@@ -60,6 +60,7 @@ export default {
             // 模拟登陆请求
             setTimeout(() => {
                 this.loading = false;
+                this.$router.push('/basic/form');
             }, 600);
         }
     }
