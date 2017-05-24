@@ -28,6 +28,7 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    'arrow-body-style': 0,
     'no-console': 0,
     'vars-on-top': 0,
     'prefer-arrow-callback': 0,

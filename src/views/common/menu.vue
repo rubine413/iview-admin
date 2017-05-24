@@ -15,7 +15,7 @@
                         <router-link class="menu-link" to="/basic/table">Table 表格</router-link>
                     </li>
                     <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/form">Icon 图标</router-link>
+                        <router-link class="menu-link" to="/basic/icon">Icon 图标</router-link>
                     </li>
                 </ul>
             </li>
@@ -179,7 +179,7 @@ export default {
         
     &.menu-item-active, &.menu-item-active .menu-link, &.menu-item-active .menu-link:hover
         color #fff
-        background $primary-bg        
+        background $primary-color       
 
     .menu-submenu &
         padding-left 0
@@ -227,7 +227,7 @@ export default {
         
     .menu-collapsed .menu-submenu-active &
         color #fff
-        background $primary-bg
+        background $primary-color
         
 
         

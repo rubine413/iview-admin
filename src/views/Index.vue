@@ -9,17 +9,19 @@
     height 100%
 
 .layout-breadcrumb
-    padding 10px 15px 0
+    margin 0 0 10px 0
 
 .layout-content
-    min-height 200px
-    margin 10px
-    overflow hidden
-    background #fff
-    border-radius 4px
+    padding 10px
+    margin-top 2px
+    overflow-y scroll
+    transition all .2s ease
+    
 
 .layout-content-main
-    padding 10px
+    padding 20px
+    background #fff
+    border-radius 4px
 
 .layout-copy
     text-align center
@@ -28,7 +30,7 @@
 
 .layout-menu
     background #464c5b
-    width 230px
+    // width 230px
     transition width .2s ease    
 
     &.layout-menu-collapsed
@@ -42,7 +44,7 @@
     align-items center
     height 60px
     background #fff
-    box-shadow 0 1px 1px rgba(0,0,0,.1)
+    box-shadow 0 1px 10px rgba(0,0,0,0.2)
 
 .layout-logo
     height 60px
@@ -52,36 +54,32 @@
     background #5b6270
     font-size 24px
 
-
 </style>
 <template>
     <div class="page page-layout layout">
         <Row type="flex" class="layout-wrapper">
-            <Col :span="spanLeft" class="layout-menu" :class="{'layout-menu-collapsed' : menuCollapsed}">
+            <Col class="layout-menu" :class="{'layout-menu-collapsed' : menuCollapsed}" :md="0" :lg="3">
                 <div class="layout-logo" :style="{ 'visibility': menuCollapsed ? 'hidden' : 'visible'}">iview-admin</div>                
                 <admin-menu :collapsed="menuCollapsed"></admin-menu>
             </Col>
-            <Col :span="spanRight" class="layout-main">
+            <Col class="layout-main" :lg="21">
                 <div class="layout-header">
                     <i-button type="text" @click="menuToggle">
                         <Icon type="navicon" size="32"></Icon>
                     </i-button>
-                </div>
-                <div class="layout-breadcrumb">
-                    <Breadcrumb>
-                        <Breadcrumb-item>首页</Breadcrumb-item>
-                        <Breadcrumb-item v-for="item in $route.matched" :key="item.path">{{ item.name }}</Breadcrumb-item>
-                    </Breadcrumb>
-                </div>
-                <div class="layout-content">
+                </div>                
+                <div class="layout-content" id="content">
+                    <div class="layout-breadcrumb">
+                        <Breadcrumb>
+                            <Breadcrumb-item>首页</Breadcrumb-item>
+                            <Breadcrumb-item v-for="item in $route.matched" :key="item.path">{{ item.name }}</Breadcrumb-item>
+                        </Breadcrumb>
+                    </div>
                     <div class="layout-content-main">
                         <transition name="fade" mode="out-in">
                             <router-view></router-view>
                         </transition>
                     </div>
-                </div>
-                <div class="layout-copy">
-                    2011-2016 &copy; TalkingData
                 </div>
             </Col>
         </Row>
@@ -89,6 +87,7 @@
 </template>
 <script>
 import AdminMenu from './common/menu';
+import { on } from '../assets/js/dom';
 
 export default {
     data() {
@@ -105,9 +104,19 @@ export default {
         }
     },
     methods: {
-        menuToggle() {
+        menuToggle() {            
             this.menuCollapsed = !this.menuCollapsed;
         }
+    },
+    mounted() {
+        console.log(this.$router.options.routes);
+        var eve = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        var freshHeight = () => {
+            let bodyRect = document.body.getBoundingClientRect();
+            document.querySelector('#content').style.height = (bodyRect.height - 62) + 'px';
+        };
+        freshHeight();
+        on(window, eve, freshHeight);        
     }
 };
 </script>
