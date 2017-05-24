@@ -38,7 +38,7 @@ export default [{
         { path: 'notice', component: Notice, name: '通知提醒' },
         { path: 'panel', component: Panel, name: '面板视图' },
         { path: 'icon', component: Navigation, name: '菜单导航' },
-        { path: 'icon', component: Progress, name: '进度加载' }
+        { path: 'progress', component: Progress, name: '进度加载' }
     ]
 }, {
     path: '/chart',
