@@ -109,7 +109,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$router.options.routes);
+        console.log(this.$router.options.routes, this.$route);
         var eve = 'orientationchange' in window ? 'orientationchange' : 'resize';
         var freshHeight = () => {
             let bodyRect = document.body.getBoundingClientRect();

@@ -1,7 +1,23 @@
 <template>
     <aside class="menu-wrapper">        
         <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
-            <li class="menu-submenu">
+
+            <li :class="[item.children ? 'menu-submenu': 'menu-item']" v-for="(item,index) in $router.options.routes" v-if="item.menu">
+                <div class="menu-title" :title="item.name" v-if="item.children">
+                    <Icon :type="item.icon"></Icon>
+                    <span>{{ item.name }}</span>
+                    <Icon type="ios-arrow-down menu-dropdown"></Icon>                    
+                </div>
+                <router-link class="menu-link" :to="item.path" v-if="!item.children">
+                    <Icon :type="item.icon"></Icon><span>{{ item.name }}</span>
+                </router-link>
+                <ul class="menu" v-if="item.children">
+                    <li class="menu-item" v-for="subitem in item.children" :rel="item.path + subitem.path">
+                        <router-link class="menu-link" :to="item.path + '/' + subitem.path">{{ subitem.name }}</router-link>
+                    </li>
+                </ul>
+            </li>
+            <!-- <li class="menu-submenu">
                 <div class="menu-title" title="基础组件">
                     <Icon type="clock"></Icon>
                     <span>基础组件</span>
@@ -43,7 +59,7 @@
                 <router-link class="menu-link" to="/basic/form">
                     <Icon type="pie-graph"></Icon><span>图表</span>
                 </router-link>
-            </li>
+            </li> -->
         </ul>
     </aside>    
 </template>
