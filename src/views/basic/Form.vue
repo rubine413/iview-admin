@@ -1,8 +1,3 @@
-<style lang="stylus" scoped>
-@import '../../style/global.styl'
-
-</style>
-
 <template>
     <div class="section-form">
         <p class="section-desc"><Icon type="help-circled"></Icon>&nbsp;关于<code>iView</code>组件的详细API和用法请<a href="https://www.iviewui.com/docs/guide/install" target="_blank">点击这里</a></p>
@@ -402,7 +397,7 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .section-desc
     font-size 12px
     margin-bottom 10px

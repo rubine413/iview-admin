@@ -2,7 +2,7 @@
     <aside class="menu-wrapper">        
         <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
 
-            <li :class="[item.children ? 'menu-submenu': 'menu-item', { 'menu-opened' : $route.fullPath.startsWith(item.path) }]" v-for="(item,index) in $router.options.routes" v-if="item.menu">
+            <li :class="[item.children ? 'menu-submenu': 'menu-item', { 'menu-opened menu-submenu-active' : $route.fullPath.startsWith(item.path) }]" v-for="(item,index) in $router.options.routes" v-if="item.menu">
                 <div class="menu-title" :title="item.name" v-if="item.children">
                     <Icon :type="item.icon"></Icon>
                     <span>{{ item.name }}</span>
