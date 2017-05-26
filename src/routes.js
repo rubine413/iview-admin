@@ -13,6 +13,7 @@ export default [{
     path: '/',
     name: '基础组件',
     menu: true,
+    submenu: true,    
     icon: 'clock',
     component: Index,
     children: [
@@ -23,7 +24,8 @@ export default [{
 }, {
     path: '/',
     name: '扩展组件',
-    menu: true,
+    menu: true,    
+    submenu: true,
     icon: 'ios-list-outline',
     component: Index,
     children: [
@@ -33,14 +35,17 @@ export default [{
         { path: 'extend/progress', component: Progress, name: '进度加载' }
     ]
 }, {
-    path: '/chart',
+    path: '/',
     name: '图表',
     menu: true,
     icon: 'pie-graph',
-    component: Chart
+    component: Index,
+    children: [
+        { path: 'echarts', component: Chart, name: 'echarts' }
+    ]
 }, {
     path: '/login',
-    name: '登陆页',
+    name: 'login',
     component: Login
 }, {
     path: '*',

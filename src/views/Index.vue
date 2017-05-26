@@ -58,11 +58,11 @@
 <template>
     <div class="page page-layout layout">
         <Row type="flex" class="layout-wrapper">
-            <Col class="layout-menu" :class="{'layout-menu-collapsed' : menuCollapsed}" :md="0" :lg="3">
+            <Col class="layout-menu" :class="{'layout-menu-collapsed' : menuCollapsed}" :md="4" :lg="3" :sm="0" :xs="0">
                 <div class="layout-logo" :style="{ 'visibility': menuCollapsed ? 'hidden' : 'visible'}">iview-admin</div>                
                 <admin-menu :collapsed="menuCollapsed"></admin-menu>
             </Col>
-            <Col class="layout-main" :lg="21">
+            <Col class="layout-main" :lg="21" :md="20" :sm="24" :xs="24">
                 <div class="layout-header">
                     <i-button type="text" @click="menuToggle">
                         <Icon type="navicon" size="32"></Icon>

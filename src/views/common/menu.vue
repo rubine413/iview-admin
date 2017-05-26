@@ -2,16 +2,16 @@
     <aside class="menu-wrapper">
          
         <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
-            <li :class="[item.children ? 'menu-submenu': 'menu-item', { 'menu-opened menu-submenu-active' : $route.fullPath.startsWith(item.path) }]" v-for="(item,index) in $router.options.routes" v-if="item.menu">
-                <div class="menu-title" :title="item.name" v-if="item.children">
+            <li :class="[item.submenu ? 'menu-submenu': 'menu-item', { 'menu-opened menu-submenu-active' : $route.fullPath.startsWith(item.path) }]" v-for="(item,index) in $router.options.routes" v-if="item.menu">
+                <div class="menu-title" :title="item.name" v-if="item.submenu">
                     <Icon :type="item.icon"></Icon>
                     <span>{{ item.name }}</span>
                     <Icon type="ios-arrow-down menu-dropdown"></Icon>                    
                 </div>
-                <router-link class="menu-link" :to="item.path" v-if="!item.children">
-                    <Icon :type="item.icon"></Icon><span>{{ item.name }}</span>
+                <router-link class="menu-link" :to="item.path + item.children[0].path" v-if="!item.submenu">
+                    <Icon :type="item.icon"></Icon><span>{{ item.children[0].name }}</span>
                 </router-link>
-                <ul class="menu" v-if="item.children">
+                <ul class="menu" v-if="item.submenu">
                     <li class="menu-item" v-for="subitem in item.children" :rel="item.path + subitem.path" :class="{ 'menu-item-active' : $route.fullPath.endsWith(subitem.path) }">
                         <router-link class="menu-link" :to="item.path + subitem.path">{{ subitem.name }}</router-link>
                     </li>
