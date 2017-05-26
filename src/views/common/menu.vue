@@ -1,7 +1,7 @@
 <template>
-    <aside class="menu-wrapper">        
+    <aside class="menu-wrapper">
+         
         <ul class="menu" :class="{ 'menu-collapsed': collapsed }" ref="menu">
-
             <li :class="[item.children ? 'menu-submenu': 'menu-item', { 'menu-opened menu-submenu-active' : $route.fullPath.startsWith(item.path) }]" v-for="(item,index) in $router.options.routes" v-if="item.menu">
                 <div class="menu-title" :title="item.name" v-if="item.children">
                     <Icon :type="item.icon"></Icon>
@@ -13,56 +13,36 @@
                 </router-link>
                 <ul class="menu" v-if="item.children">
                     <li class="menu-item" v-for="subitem in item.children" :rel="item.path + subitem.path" :class="{ 'menu-item-active' : $route.fullPath.endsWith(subitem.path) }">
-                        <router-link class="menu-link" :to="item.path + '/' + subitem.path">{{ subitem.name }}</router-link>
+                        <router-link class="menu-link" :to="item.path + subitem.path">{{ subitem.name }}</router-link>
                     </li>
                 </ul>
-            </li>
-            <!-- <li class="menu-submenu">
-                <div class="menu-title" title="基础组件">
-                    <Icon type="clock"></Icon>
-                    <span>基础组件</span>
-                    <Icon type="ios-arrow-down menu-dropdown"></Icon>                    
-                </div>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/form">Form 表单</router-link>
-                    </li>
-                    <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/table">Table 表格</router-link>
-                    </li>
-                    <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/icon">Icon 图标</router-link>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-submenu">
-                <div class="menu-title" title="导航">
-                    <Icon type="ios-list-outline"></Icon>
-                    <span>导航</span>
-                    <Icon type="ios-arrow-down menu-dropdown"></Icon> 
-                </div>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/form">Input 输入框</router-link>
-                    </li>
-                    <li class="menu-item">
-                        <router-link class="menu-link" to="/basic/form">Radio 单选框</router-link>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <router-link class="menu-link" to="/basic/form">
-                    <Icon type="pinpoint"></Icon><span>基础组件</span>
-                </router-link>
-            </li>
-            <li class="menu-item">
-                <router-link class="menu-link" to="/basic/form">
-                    <Icon type="pie-graph"></Icon><span>图表</span>
-                </router-link>
-            </li> -->
+            </li>           
         </ul>
-    </aside>    
+        <!-- <ul data-v-10a3105a="" class="menu">
+            <li data-v-10a3105a="" class="menu-submenu menu-submenu-active">
+                <div data-v-10a3105a="" title="基础组件" class="menu-title"><i data-v-10a3105a="" class="ivu-icon ivu-icon-clock"></i> <span data-v-10a3105a="">基础组件</span> <i data-v-10a3105a="" class="ivu-icon ivu-icon-ios-arrow-down menu-dropdown"></i></div>
+                <ul data-v-10a3105a="" class="menu">
+                    <li data-v-10a3105a="" rel="/basicform" class="menu-item"><a data-v-10a3105a="" href="#/basic/form" class="menu-link">表单</a></li>
+                    <li data-v-10a3105a="" rel="/basictable" class="menu-item menu-item-active"><a data-v-10a3105a="" href="#/basic/table" class="menu-link router-link-exact-active router-link-active">表格</a></li>
+                    <li data-v-10a3105a="" rel="/basicicon" class="menu-item"><a data-v-10a3105a="" href="#/basic/icon" class="menu-link">图标</a></li>
+                </ul>
+            </li>
+            <li data-v-10a3105a="" class="menu-submenu">
+                <div data-v-10a3105a="" title="扩展组件" class="menu-title"><i data-v-10a3105a="" class="ivu-icon ivu-icon-ios-list-outline"></i> <span data-v-10a3105a="">扩展组件</span> <i data-v-10a3105a="" class="ivu-icon ivu-icon-ios-arrow-down menu-dropdown"></i></div>
+                <ul data-v-10a3105a="" class="menu">
+                    <li data-v-10a3105a="" rel="/extendnotice" class="menu-item"><a data-v-10a3105a="" href="#/extend/notice" class="menu-link">通知提醒</a></li>
+                    <li data-v-10a3105a="" rel="/extendpanel" class="menu-item"><a data-v-10a3105a="" href="#/extend/panel" class="menu-link">面板视图</a></li>
+                    <li data-v-10a3105a="" rel="/extendnavigation" class="menu-item"><a data-v-10a3105a="" href="#/extend/navigation" class="menu-link">菜单导航</a></li>
+                    <li data-v-10a3105a="" rel="/extendprogress" class="menu-item"><a data-v-10a3105a="" href="#/extend/progress" class="menu-link">进度加载</a></li>
+                </ul>
+            </li>
+            <li data-v-10a3105a="" class="menu-item">
+                <a data-v-10a3105a="" href="#/chart" class="menu-link"><i data-v-10a3105a="" class="ivu-icon ivu-icon-pie-graph"></i><span data-v-10a3105a="">图表</span></a>                
+            </li>
+        </ul> -->
+    </aside>
 </template>
+
 
 <script>
 import { mapActions } from 'vuex';
