@@ -183,7 +183,7 @@
                 </Col>            
                 <Col span="8" :lg="8" :md="12" :sm="12" :xs="24">
                     <p class="section-data-desc">快速跳转</p>
-                    <Page :total="100" show-elevator></Page><br>
+                    <Page :total="50" show-elevator></Page><br>
                     <p class="section-data-desc">显示总数</p>
                     <Page :total="100" show-total></Page><br>
                 </Col>            
@@ -192,6 +192,43 @@
                     <Page :current="2" :total="50" simple></Page><br>
                     <p class="section-data-desc">迷你型</p>
                     <Page :total="40" size="small" show-elevator show-sizer></Page><br>
+                </Col>
+            </Row>        
+        </div>
+        <div class="section-title">
+            <p>Breadcrumb 面包屑</p>
+        </div>
+        <div class="section-data">
+            <Row :gutter="16">            
+                <Col span="8" :lg="8" :md="12" :sm="12" :xs="24">
+                    <p class="section-data-desc">基本</p>
+                    <Breadcrumb>
+                        <Breadcrumb-item href="/">Home</Breadcrumb-item>
+                        <Breadcrumb-item href="/components/breadcrumb">Components</Breadcrumb-item>
+                        <Breadcrumb-item>Breadcrumb</Breadcrumb-item>
+                    </Breadcrumb><br><br>                    
+                </Col>            
+                <Col span="8" :lg="8" :md="12" :sm="12" :xs="24">
+                    <p class="section-data-desc">带图标的 </p>
+                    <Breadcrumb>
+                        <Breadcrumb-item href="/">
+                            <Icon type="ios-home-outline"></Icon> Home
+                        </Breadcrumb-item>
+                        <Breadcrumb-item href="/components/breadcrumb">
+                            <Icon type="social-buffer-outline"></Icon> Components
+                        </Breadcrumb-item>
+                        <Breadcrumb-item>
+                            <Icon type="pound"></Icon> Breadcrumb
+                        </Breadcrumb-item>
+                    </Breadcrumb>
+                </Col>            
+                <Col span="8" :lg="8" :md="12" :sm="12" :xs="24">
+                    <p class="section-data-desc">自定义分隔符</p>
+                    <Breadcrumb separator="<b style='color:#f50;'>=></b>">
+                        <Breadcrumb-item href="/">Home</Breadcrumb-item>
+                        <Breadcrumb-item href="/components/breadcrumb">Components</Breadcrumb-item>
+                        <Breadcrumb-item>Breadcrumb</Breadcrumb-item>
+                    </Breadcrumb>
                 </Col>
             </Row>        
         </div>
