@@ -1,13 +1,13 @@
-import Login from './views/Login';
-import Index from './views/Index';
-import Form from './views/basic/Form';
-import Table from './views/basic/Table';
-import Icon from './views/basic/Icon';
-import Navigation from './views/extend/Navigation';
-import Notice from './views/extend/Notice';
-import Panel from './views/extend/Panel';
-import Progress from './views/extend/Progress';
-import Chart from './views/chart/Index';
+import Login from './views/login';
+import Main from './views/main';
+import Form from './views/basic/form';
+import Table from './views/basic/table';
+import Icon from './views/basic/icon';
+import Navigation from './views/extend/navigation';
+import Notice from './views/extend/notice';
+import Panel from './views/extend/panel';
+import Progress from './views/extend/progress';
+import Echarts from './views/chart/echarts';
 
 export default [{
     path: '/',
@@ -15,7 +15,7 @@ export default [{
     menu: true,
     submenu: true,    
     icon: 'clock',
-    component: Index,
+    component: Main,
     children: [
         { path: 'basic/form', component: Form, name: '表单' },
         { path: 'basic/table', component: Table, name: '表格' },
@@ -27,7 +27,7 @@ export default [{
     menu: true,    
     submenu: true,
     icon: 'ios-list-outline',
-    component: Index,
+    component: Main,
     children: [
         { path: 'extend/notice', component: Notice, name: '通知提醒' },
         { path: 'extend/panel', component: Panel, name: '面板视图' },
@@ -39,9 +39,9 @@ export default [{
     name: '图表',
     menu: true,
     icon: 'pie-graph',
-    component: Index,
+    component: Main,
     children: [
-        { path: 'echarts', component: Chart, name: 'echarts' }
+        { path: 'echarts', component: Echarts, name: 'echarts' }
     ]
 }, {
     path: '/login',
